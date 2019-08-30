@@ -1,6 +1,7 @@
 /**
  * History:
  *
+ * 2 (2019-08-30) - Fixed millisecond decimal places count (1 to 9 digits).
  * 1 (2019-04-16) - Initial release.
  */
 package pl.waw.medynski.util;
@@ -25,7 +26,7 @@ import org.joda.time.format.DateTimeParser;
  * ISOInstant class.
  *
  * @author Maciej Medyński
- * @version 1
+ * @version 2
  */
 public class ISOInstant
 {
@@ -33,6 +34,7 @@ public class ISOInstant
      * Parse string according to ISO8601 date-time with timezone format.
      * Format: (YYYY[-]MM[-]DD)'T'(HH[:]MM[:]SS[.SSS])(Z|±00[:00])
      * where [] - optional, () - group (date/time/timezone), | - or, 'x' - literal
+     * milliseconds [.SSS] can be from 1 to 9 decimal places
      * For details see {@link #ISO_PATTERN}.
      * 
      * @param text
@@ -56,7 +58,7 @@ public class ISOInstant
      * ISO-8601 supported variants pattern.
      */
     private static final Pattern ISO_PATTERN = Pattern
-            .compile("^((\\d{8})|(\\d{4}-\\d{2}-\\d{2}))T((\\d{6})|(\\d{2}:\\d{2}:\\d{2}))(\\.\\d{3})?(([+-]\\d{2}(:?\\d{2})?)|Z)$");
+            .compile("^((\\d{8})|(\\d{4}-\\d{2}-\\d{2}))T((\\d{6})|(\\d{2}:\\d{2}:\\d{2}))(\\.\\d{1,9})?(([+-]\\d{2}(:?\\d{2})?)|Z)$");
     
     
     /**
